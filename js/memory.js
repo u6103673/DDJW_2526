@@ -39,6 +39,8 @@ var game = {
             this.score = toLoad.score;
             this.pairs = toLoad.pairs;
             this.level = toLoad.level || 1;
+			
+			sessionStorage.removeItem('load'); //error trobat nivell infinit
         }
         else { 
             let mode = sessionStorage.gameMode || '1';
@@ -147,9 +149,27 @@ var game = {
                 }, this.flipTime);
 
                 this.score -= this.penalty;
+                this.score -= this.penalty;
                 if (this.score <= 0){
                     setTimeout(() => {
-                        alert ("T'has quedat sense punts. Game Over.");
+                        let mode = sessionStorage.gameMode || '1';
+                        
+                        if (mode === '2') {
+                            // ranking
+                            let alies = sessionStorage.alies || 'Anònim';
+                            let puntsTotals = parseInt(sessionStorage.currentScore) || 200; 
+                            
+                            alert (`Game Over! Has arribat al Nivell ${this.level} amb ${puntsTotals} punts.`);
+                            
+                            let ranking = localStorage.ranking ? JSON.parse(localStorage.ranking) : [];
+                            ranking.push({ alies: alies, punts: puntsTotals, nivell: this.level });
+                            
+                            ranking.sort((a, b) => b.punts - a.punts);
+                            localStorage.ranking = JSON.stringify(ranking);
+                        } else {
+                            alert ("T'has quedat sense punts. Has perdut...");
+                        }
+
                         sessionStorage.removeItem('currentLevel');
                         sessionStorage.removeItem('currentScore');
                         window.location.assign("../");
