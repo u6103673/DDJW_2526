@@ -24,7 +24,7 @@ $(document).ready(function() {
     });
 
     $('#scores').click(function(){
-        alert("La pantalla de puntuacions es programarà en la pròxima fase!");
+        window.location.assign("./html/scores.html");
     });
 
     $('#options').click(function(){
