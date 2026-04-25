@@ -2,15 +2,41 @@
 <html>
 	<head>
 		<script type="module" src="./js/main.js"></script>
-		<link rel="stylesheet" 
-			href="./styles/main.css">
+		<link rel="stylesheet" href="./styles/main.css">
 		<title> Memory - Menú </title>
 	</head>
 	<body>
-		<h1 id="title">Menú</h1>
-		<button id="play" class="center"> Jugar </button>
-		<button id="options" class="center"> Opcions </button>
-		<button id="saves" class="center"> Partides </button>
-		<button id="exit" class="center"> Sortir </button>
+		<main id="main-menu">
+			<h1 id="title">Menú</h1>
+			
+			<div class="menu-options" style="margin-bottom: 20px;">
+				<label for="game-mode">Mode de Joc:</label>
+				<select id="game-mode">
+					<option value="1">Mode 1 (Nivell personalitzat)</option>
+					<option value="2">Mode 2 (Supervivència Infinita)</option>
+				</select>
+				<br><br>
+				<label for="difficulty">Dificultat Inicial:</label>
+				<select id="difficulty">
+					<option value="easy">Fàcil</option>
+					<option value="normal" selected>Normal</option>
+					<option value="hard">Difícil</option>
+				</select>
+				<br><br>
+				<label for="group-size">Mida del grup:</label>
+				<select id="group-size">
+					<option value="2" selected>Parelles</option>
+					<option value="3">Trios</option>
+					<option value="4">Quartets</option>
+				</select>
+			</div>
+
+			<div class="menu-buttons">
+				<button id="play" class="center"> Jugar </button>
+				<button id="scores" class="center"> Puntuacions </button>
+				<button id="options" class="center"> Opcions globals </button>
+				<button id="saves" class="center"> Carregar Partida </button>
+			</div>
+		</main>
 	</body>
 </html>

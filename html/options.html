@@ -1,20 +1,30 @@
 <!DOCTYPE html> 
 <html>
 	<head>
-        <script src="../js/options.js" type="module"></script>
+		<script src="../js/options.js" type="module"></script>
+		<link rel="stylesheet" href="../styles/main.css">
 		<title> Memory - Opcions </title>
 	</head>
 	<body>
-		<h1>Opcions</h1>
-        <label for="pairs">Número de cartes</label>
-        <input type="number" id="pairs" value="2" min="2" max="6">
-        <label for="dif">Dificultat</label>
-        <select id="dif">
-            <option value="easy">Baixa</option>
-            <option value="normal" selected>Normal</option>
-            <option value="hard">Alta</option>
-        </select>
-        <button id="default">Per defecte</button>
-        <button id="apply">Aplicar</button>
+		<main id="main-menu">
+			<h1 id="title">Opcions Globals</h1>
+			
+			<div class="menu-options" style="text-align: center;">
+				<label for="pairs">Número de cartes diferents:</label>
+				<input type="number" id="pairs" value="2" min="2" max="6">
+				<br><br>
+				<label for="dif">Dificultat global:</label>
+				<select id="dif">
+					<option value="easy">Baixa</option>
+					<option value="normal" selected>Normal</option>
+					<option value="hard">Alta</option>
+				</select>
+			</div>
+
+			<div class="menu-buttons">
+				<button id="apply" class="center">Aplicar i Guardar</button>
+				<button id="default" class="center" style="background-color: #d1c4e9; color: #5e3370; border-color: #a05add;">Per defecte</button>
+			</div>
+		</main>
 	</body>
 </html>

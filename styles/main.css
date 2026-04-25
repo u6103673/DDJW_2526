@@ -73,3 +73,86 @@ h1 {
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
 }
+
+#main-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Caixa de les opcions*/
+.menu-options {
+    background-color: rgba(255, 255, 255, 0.4); 
+    padding: 2rem 3rem;
+    border: 3px solid #8e44ad;
+    border-radius: 30px;
+    box-shadow: 0px 5px 0px #8e44ad;
+    text-align: right;
+    margin-bottom: 2rem;
+}
+
+/* Text de les opcions */
+.menu-options label {
+    color: #8e44ad;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-right: 15px;
+}
+
+/* Estil dels desplegables */
+.menu-options select, .menu-options input[type="number"] {
+    font-family: inherit;
+    background-color: white;
+    color: #8e44ad;
+    border: 3px solid #b97bed;
+    border-radius: 15px;
+    padding: 8px 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+    width: 250px;
+    transition: all 0.2s ease;
+}
+
+.menu-options select:hover, .menu-options select:focus, .menu-options input[type="number"]:focus {
+    border-color: #8e44ad;
+    background-color: #f4e8ff;
+    transform: scale(1.02);
+}
+
+/* Contenidor per alinear els botons */
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+/* Boto de guardar la partida*/
+button#save, button#guardar {
+    background-color: #b97bed;
+    color: white;
+    font-family: inherit;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: 3px solid #8e44ad;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0px 4px 0px #8e44ad;
+    transition: all 0.1s ease;
+    
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 100;
+}
+
+button#save:hover, button#guardar:hover {
+    background-color: #a05add;
+    transform: scale(1.05);
+}
+
+button#save:active, button#guardar:active {
+    transform: translateY(4px);
+    box-shadow: 0px 0px 0px #8e44ad;
+}

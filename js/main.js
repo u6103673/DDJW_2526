@@ -2,10 +2,29 @@ import {$} from "../library/jquery-4.0.0.slim.module.min.js";
 
 $(document).ready(function() {
     $('#play').click(function(){
+        // Llegim els valors dels selectors
+        let selectedMode = $('#game-mode').val();
+        let selectedDiff = $('#difficulty').val();
+        let selectedGroup = $('#group-size').val();
+
+        // Demanem l'àlies
         let alies = prompt("Introdueix l'àlies:");
-        console.log("L'àlies és: " + alies);
-        sessionStorage.removeItem('load');
-        window.location.assign("./html/game.html");
+        
+        if (alies) {
+            // Guardem tota la configuració a la memòria del navegador
+            sessionStorage.alies = alies;
+            sessionStorage.gameMode = selectedMode;
+            sessionStorage.difficulty = selectedDiff;
+            sessionStorage.groupSize = selectedGroup;
+            
+            console.log(`L'àlies és: ${alies} | Mode: ${selectedMode} | Dificultat: ${selectedDiff} | Mida grup: ${selectedGroup}`);
+            sessionStorage.removeItem('load');
+            window.location.assign("./html/game.html");
+        }
+    });
+
+    $('#scores').click(function(){
+        alert("La pantalla de puntuacions es programarà en la pròxima fase!");
     });
 
     $('#options').click(function(){
@@ -32,9 +51,5 @@ $(document).ready(function() {
         }
         sessionStorage.load = to_load;
         window.location.assign("./html/game.html");
-    });
-
-    $('#exit').click(function(){
-        console.warn("No es pot sortir!");
     });
 });
