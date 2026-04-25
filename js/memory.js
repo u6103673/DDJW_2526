@@ -14,9 +14,12 @@ var game = {
     states: [],
     setValue: null,
     ready: 0,
-    lastCard: null,
+    flippedCards: [], // llista per guardar les cartes girades
     score: 200,
-    pairs: 2,
+    pairs: 2, 
+    flipTime: 1000,
+    penalty: 25,
+    
     goBack: function(idx){
         this.setValue && this.setValue[idx](back);
         this.states[idx] = StateCard.ENABLE;
@@ -25,24 +28,51 @@ var game = {
         this.setValue && this.setValue[idx](this.items[idx]);
         this.states[idx] = StateCard.DISABLE;
     },
+    
     select: function(){
-        if (sessionStorage.load){ // Carreguem partida
+        if (sessionStorage.load){ 
             let toLoad = JSON.parse(sessionStorage.load);
             this.items = toLoad.items;
             this.states = toLoad.states;
-            this.lastCard = toLoad.lastCard;
+            this.flippedCards = toLoad.flippedCards || [];
             this.score = toLoad.score;
             this.pairs = toLoad.pairs;
         }
-        else{ // Nova partida
+        else { 
+            let globalOptions = localStorage.options ? JSON.parse(localStorage.options) : { pairs: 2 };
+			this.pairs = parseInt(globalOptions.pairs) || 2;
+            
+            // llegir la mida
+            let groupSize = parseInt(sessionStorage.groupSize) || 2;
+            
+            // llegir dificultat
+            let diff = sessionStorage.difficulty || 'normal';
+            if (diff === 'easy') { 
+                this.flipTime = 2000;
+                this.penalty = 10;
+            } else if (diff === 'hard') { 
+                this.flipTime = 500;
+                this.penalty = 50;
+            } else {
+                this.flipTime = 1000; 
+                this.penalty = 25; 
+            }
+            
             this.items = resources.slice();          
             shuffe(this.items);                      
             this.items = this.items.slice(0, this.pairs); 
-            this.items = this.items.concat(this.items);        
+            
+            let deck = [];
+            for (let i = 0; i < groupSize; i++) {
+                deck = deck.concat(this.items);
+            }
+            this.items = deck;        
+            
             shuffe(this.items);
-            this.states = new Array(this.items.length);
+            this.states = new Array(this.items.length).fill(StateCard.ENABLE);
         }
     },
+    
     start: function(){
         this.items.forEach((_,indx)=>{
             if (this.states[indx] === StateCard.DISABLE ||
@@ -57,45 +87,55 @@ var game = {
             }
         });
     },
+    
     click: function(indx){
         if (this.states[indx] !== StateCard.ENABLE || this.ready < this.items.length) return;
+        
         this.goFront(indx);
-        if (this.lastCard === null) this.lastCard = indx; // Primera carta clicada
-        else{ // Teníem carta prèvia
-            if (this.items[this.lastCard] === this.items[indx]){
+        this.flippedCards.push(indx); // afegir carta girada
+
+        let groupSize = parseInt(sessionStorage.groupSize) || 2;
+
+        if (this.flippedCards.length === groupSize) {
+            
+            let firstCardImg = this.items[this.flippedCards[0]];
+            let allMatch = this.flippedCards.every(id => this.items[id] === firstCardImg);
+
+            if (allMatch){
                 this.pairs--;
-                this.states[this.lastCard] = this.states[indx] = StateCard.DONE;
+                this.flippedCards.forEach(id => this.states[id] = StateCard.DONE);
                 if (this.pairs <= 0){
-					setTimeout(() => {
-						alert(`Has guanyat amb ${this.score} punts!!!!`);
-						window.location.assign("../");
-					}, 500);
+                    setTimeout(() => {
+                        alert(`Has guanyat amb ${this.score} punts!!!!`);
+                        window.location.assign("../");
+                    }, 500);
                 }
             }
             else {
-                let primeraCarta = this.lastCard;
-                let segonaCarta = indx;
+				
+                let cardsToFlipBack = [...this.flippedCards];
                 setTimeout(() => {
-                    this.goBack(primeraCarta);
-                    this.goBack(segonaCarta);
-                }, 1000);
+                    cardsToFlipBack.forEach(id => this.goBack(id));
+                }, this.flipTime);
 
-                this.score -= 25;
+                this.score -= this.penalty;
                 if (this.score <= 0){
                     setTimeout(() => {
-                        alert ("Has perdut");
+                        alert ("Has perdut...");
                         window.location.assign("../");
-                    }, 1000);
+                    }, this.flipTime);
                 }
             }
-            this.lastCard = null;
+			
+            this.flippedCards = [];
         }
     },
+    
     save: function(){
         let to_save = JSON.stringify({
             items: this.items,
             states: this.states,
-            lastCard: this.lastCard,
+            flippedCards: this.flippedCards,
             score: this.score,
             pairs: this.pairs
         });
