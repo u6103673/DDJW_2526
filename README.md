@@ -2,13 +2,13 @@ TREBALL INDIVIDUAL - MEMORY - DDJW
 JÚLIA CONDE FABRA - U6103673
 
 i. Introducció
-Desenvolupar un joc web de cartes de memòria interactiu amb html, css i javascript (amb ús de JQuery) on es poden triar diferents modes de joc, dificultats i nombre de cartes, tot això amb un sistema de guardat amb un rànking local de top 10 millors puntuacions.
+Desenvolupar un joc web de cartes de memòria interactiu amb html, css i javascript (amb ús de JQuery) i fet amb Canvas per al bucle principal del joc on es poden triar diferents modes de joc, dificultats i nombre de cartes, tot això amb un sistema de guardat amb un rànking local de top 10 millors puntuacions.
 
 ii. Descripció del disseny del joc
-El disseny visual se centra en una estètica amigable amb tons lila i formes arrodonides. Els botons animats amb ombres. Ús de flexbox per adaptar-se dinàmicament al nombre de cartes triat. Les cartes segueixen aquesta estètica i estan fetes amb SVG.
+El disseny visual se centra en una estètica amigable amb tons lila i formes arrodonides. Els botons animats amb ombres. El tauler de joc es dibuixa a un element Canvas amb una quadrícula per adaptar-se dinàmicament al nombre de cartes triat. Les cartes segueixen aquesta estètica i estan fetes amb SVG.
 
 iii. Descripció de les parts més rellevants de la implementació
-La part més complexa es troba al memory.js.
+La part més complexa es troba al memory.js i la implementació del canvasgame.js amb un game loop utilitzant requestAnimationFrame.
 Afegit els modes de trios i quartets. Codi adaptat per fer servir una llista de cartes i poder comprovar 3 o 4 cartes alhora en lloc de només una parella.
 Utilitzat sessionStorage per guardar les opcions del menú i per al rànquing i les opcions globals el localStorage.
 Mode 2 (supervivència) un mode on després d'encertar totes les cartes passes al següent nivell, guardant la puntuació i augmentant el nombre de cartes.
@@ -21,3 +21,4 @@ Un problema que he trobat era amb les partides guardades del mode infinit. Quan 
 
 Conclusió: Al final el joc funciona de manera fluida, amb comunicació entre menú i partida correcta i sistema de guardat i càrrega funcional. Tot això amb una estètica que m'agrada molt i és amigable.
 
+Finalment, s'adaptat el memory correctament al format de Canvas.
