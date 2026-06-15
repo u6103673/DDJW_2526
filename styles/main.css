@@ -58,20 +58,12 @@ h1 {
 }
 
 #game {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    max-width: 500px;
+    display: block;
     margin: 2rem auto;
-}
-
-#game img {
-    /*fer les cartes més boniques*/
-    cursor: pointer;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    background-color: rgba(255, 255, 255, 0.4);
+    border: 3px solid #8e44ad;
+    border-radius: 20px;
+    box-shadow: 0px 5px 0px #8e44ad;
 }
 
 #main-menu {
